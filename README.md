@@ -28,7 +28,7 @@ to run the tests;
 
    
 NOTE THAT: 1)presently the csv under data/csv is used as a source and is very tiny placeholder source.
-           2) It can be better to have different worker carry out ETL for each of the sources for independence (Not done due to time       constraints)
-           3)Cloud deployment is in progress and I will update this field as soon as possible
+           2) It can be better to have different worker carry out ETL for each of the sources for independence (Not done due to time constraints)
+           3)Cloud deployment done on GCP. API ENDPOINT= https://etl-api-617963497994.us-central1.run.app/stats 
 
 
