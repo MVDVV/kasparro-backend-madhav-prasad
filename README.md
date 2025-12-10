@@ -94,7 +94,7 @@ Parameter details can be found in `api/main.py`.
 ## Please Note
 
 1. The CSV under `data/csv` is used as a tiny placeholder source.
-2. ETL workers could be separated per source for independence (not implemented due to time constraints).
+2. ETL worker could be separated per source for independence (not implemented due to time constraints).
 3. The failure-recovery test is incomplete as of now. They way market data is currently obtained, it doesnt make sense for their to be a state recovery(as it can request the market data again), still will update if i implement it.
 4. Cloud deployment is done on GCP.
 
