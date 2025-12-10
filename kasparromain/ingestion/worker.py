@@ -1,4 +1,4 @@
-# worker/worker.py
+# ingestion/worker.py
 import os
 import time
 import csv
@@ -21,6 +21,7 @@ def main_loop():
         start = datetime.utcnow()
         try:
             api_count = fetch_api(conn)
+            api_count += fetch_api(conn,api_type="paprika")
             csv_count = process_csv(conn)
             # insert etl_run log
             if(api_count != 0):
