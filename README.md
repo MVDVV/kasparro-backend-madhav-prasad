@@ -39,7 +39,7 @@ cp .env.example .env
 docker-compose up
 ```
 
-### To start CoinGeckoAPI:
+### To also start CoinGeckoAPI:
 
 ```bash
 API_KEY=Your_API_Key docker-compose up
