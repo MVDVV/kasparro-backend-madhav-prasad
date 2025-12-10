@@ -1,3 +1,4 @@
+#testing incremental ingestions
 from ingestion.unify_schema import upsert_normalized
 from datetime import datetime
 import psycopg2
