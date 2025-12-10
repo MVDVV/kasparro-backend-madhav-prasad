@@ -18,10 +18,10 @@ load_dotenv()
 #CHECK API KEY for coingecko
 
 if not os.getenv("API_KEY"):
-    noKey = True
+    noKeyforGecko = True
     print("WARNING: API_KEY missing for CoinGecko — PLEASE RUN API_KEY=<your_key> docker-compose up")
 else:
-    noKey = False
+    noKeyforGecko = False
     key = os.getenv("API_KEY")
 
 
@@ -56,7 +56,7 @@ def fetch_api(conn,api_type ="coingecko"):
             response.raise_for_status()
             SOURCE_NAME="paprika"
         else:
-            if noKey:
+            if noKeyforGecko:
                 return 0
             
             else:
