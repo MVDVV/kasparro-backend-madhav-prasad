@@ -95,8 +95,9 @@ Parameter details can be found in `api/main.py`.
 
 1. The CSV under `data/csv` is used as a tiny placeholder source.
 2. ETL worker could be separate for each source for independence (not implemented due to time constraints).
-3. The failure-recovery test is incomplete as of now. They way market data is currently obtained, it doesnt make sense for their to be a state recovery(as it can request the market data again), still will update if i implement it.
-4. Cloud deployment is done on GCP.
+4. The failure-recovery test is incomplete as of now. They way market data is currently obtained, it doesnt make sense for their to be a state recovery(as it can request the market data again), still will update if i implement it.
+5. Cloud deployment is done on GCP.
+6. I have ignored some cases where the code in theory can try to access a None object, for simplicity; ideally these can be fixed with a small check before access
 
 ### Cloud API Endpoint
 
