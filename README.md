@@ -5,6 +5,8 @@
 
 All components run via **docker-compose** using the prebuilt image as required.
 
+The way i have implemented this,  the application majors objective is use API's fetch all coin market data from the respective API's and index's them by the coin name and a few selected coloumns into a unfied schema. It by default requests around 2000 new entries(depending on the API's provided) every 30 seconds.
+
 ---
 
 ##  1. Download this repository
