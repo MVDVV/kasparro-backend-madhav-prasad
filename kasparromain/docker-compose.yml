@@ -18,7 +18,7 @@ services:
       - "5432:5432"
 
   app:
-    build: .
+    image: madhavprasad2003/kasparromain:latest
     env_file:
       - .env
     depends_on:
@@ -31,7 +31,7 @@ services:
       - ./data:/app/data
 
   worker:
-    build: .
+    image: madhavprasad2003/kasparromain:latest
     env_file:
       - .env
     depends_on:
