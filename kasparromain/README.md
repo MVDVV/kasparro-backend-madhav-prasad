@@ -9,7 +9,7 @@ All components run via docker-compose works with the prebuilt image
 --->  cp .env.example .env
 
 3)COMMAND TO START ===> {docker-compose up}
-(to also start CoinGecko runs, instead do) ===>  {API_KEY=your-api-key docker-compose up}
+(to also start CoinGecko runs, instead do) ===>  {API_KEY=Your_API_Key docker-compose up}
  
 
    Presently it accepts key for GeckoCoinAPI,  
