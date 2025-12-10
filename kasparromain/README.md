@@ -16,7 +16,7 @@ All components run via docker-compose works with the prebuilt image
 STARTING AUTOMATICALLY exposes endpoints at http://0.0.0.0:8000/xyz (xyz = stats,data,health) AND starts ETL runs as specified
 
 
-endpoint queries for data are straightforward: {parameter field can be found under main.py}
+endpoint queries for data are straightforward: {parameter field can be found under api/main.py}
    example: 
    to retrieve entries from 10th december (and go to page 4) request
    http://0.0.0.0:8000/data?page=4&from_ts="2025-12-10" 
