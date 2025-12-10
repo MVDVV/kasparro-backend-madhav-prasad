@@ -2,13 +2,13 @@
 import os
 import time
 import json
-import requests
 from datetime import datetime
 from dotenv import load_dotenv
 
 from core.db import get_db_conn
 from ingestion.unify_schema import upsert_normalized
 from ingestion.checkpoints import set_checkpoint
+from ingestion.expo_backoff import expo_backoff_request
 from schemas.records import CoinGeckoItem
 
 load_dotenv()
@@ -18,10 +18,10 @@ load_dotenv()
 #CHECK API KEY for coingecko
 
 if not os.getenv("API_KEY"):
-    noKeyforGecko = True
+    noKey = True
     print("WARNING: API_KEY missing for CoinGecko — PLEASE RUN API_KEY=<your_key> docker-compose up")
 else:
-    noKeyforGecko = False
+    noKey = False
     key = os.getenv("API_KEY")
 
 
@@ -52,11 +52,10 @@ def fetch_api(conn,api_type ="coingecko"):
     """Fetches coin market data from CoinGecko every call (call frequency controlled by worker using POLL field)"""
     try:
         if api_type != "coingecko":
-            response = requests.get(PAPRIKA_URL, timeout=15) 
-            response.raise_for_status()
+            response = expo_backoff_request(PAPRIKA_URL, timeout=15) 
             SOURCE_NAME="paprika"
         else:
-            if noKeyforGecko:
+            if noKey:
                 return 0
             
             else:
@@ -68,11 +67,10 @@ def fetch_api(conn,api_type ="coingecko"):
                     "price_change_percentage": PRICE_CHANGE_PERCENTAGE,
                     "include_tokens": INCLUDE_TOKENS,
                 }
-                response = requests.get(SOURCE_API_URL, params=params, headers=headers, timeout=15) # 
-                response.raise_for_status()
+                response = expo_backoff_request(SOURCE_API_URL,params=params,headers=headers,timeout=15,max_retries=5)
                 SOURCE_NAME="coingecko"
 
-        coins = response.json()
+        coins = response.json() # type: ignore
         processed = 0
 
         for coin in coins:
@@ -106,9 +104,10 @@ def fetch_api(conn,api_type ="coingecko"):
                 print("Validation failed:", e)
                 continue
 
+            # Raw Insertion
             raw_id = insert_raw_api(conn, crypto.id, crypto.raw_payload)
 
-
+            # Normalized Insertion
             upsert_normalized(
                 conn=conn,
                 canonical_id=crypto.canonical_id,
@@ -119,16 +118,17 @@ def fetch_api(conn,api_type ="coingecko"):
                 source=SOURCE_NAME,
                 raw_ref=raw_id,
             )
+            set_checkpoint(
+                conn,
+                source=SOURCE_NAME,
+                last_offset=crypto.id,
+                last_ts=crypto.ts
+                )
+
 
             processed += 1
 
         if processed:
-            set_checkpoint( # updating checkpoint after processing batch
-                conn,
-                "api",
-                last_offset=str(datetime.utcnow()),
-                last_ts=datetime.utcnow(),
-            )
             print("PAYLOAD SUCCESS from source :",SOURCE_NAME," records processed:", processed)
 
         return processed
