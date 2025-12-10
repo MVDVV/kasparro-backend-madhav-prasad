@@ -1,4 +1,4 @@
-#this needs rewriting
+#to be updated
 import psycopg2
 DATABASE_URL = "postgresql://app:password@postgres:5432/appdb"
 
