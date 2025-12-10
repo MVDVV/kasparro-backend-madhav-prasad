@@ -1,4 +1,4 @@
-All components run via docker-compose with a prebuilt image
+All components run via docker-compose works with the prebuilt image
 
 1)download this repository
 
