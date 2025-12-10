@@ -23,6 +23,12 @@ to run the tests;
 --> docker-compose exec app python -m pytest -q ./tests
 
 
+endpoint queries for data are straightforward: {parameter field can be found under main.py}
+ Do--> http://0.0.0.0:8000/data?page=4&from_ts="2025-12-10" to retrieve entries from 10th december (go to page 4)
+         
+
 NOTE THAT: 1)presently the csv under data/csv is used as a source and is very tiny placeholder source.
-           2) It can be better to have different worker carry out ETL for each of the sources for independence (Not done due to time       constraints
+           2) It can be better to have different worker carry out ETL for each of the sources for independence (Not done due to time       constraints)
            3)Cloud deployment is in progress and I will update this field as soon as possible
+
+
