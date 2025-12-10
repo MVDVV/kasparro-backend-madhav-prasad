@@ -81,10 +81,10 @@ Parameter details can be found in `api/main.py`.
    docker-compose up
    ```
 
-2. Then run tests:
+2. Then to run tests:
 
    ```bash
-   docker-compose exec app python -m pytest -q ./tests
+   make test
    ```
 
 ---
