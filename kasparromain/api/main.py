@@ -16,7 +16,7 @@ app = FastAPI(title= "Backend & ETL - Assignment, API")
 # ensure tables exist on startup
 @app.on_event("startup")
 def startup():
-    time.sleep(5)  # wait for the DB to be ready
+    time.sleep(5)  # wait for the DB to be ready, else it api exit when rerun
     ensure_tables()
 
 
