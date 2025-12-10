@@ -104,7 +104,7 @@ https://etl-api-617963497994.us-central1.run.app/stats
 
 ---
 
-## 📞 Contact Information
+##  Contact Information
 
 *Please note that I am currently unable to receive calls on the number provided in the Google forms.
 If needed, please message me on WhatsApp. Thank you.*
