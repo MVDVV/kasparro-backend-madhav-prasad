@@ -14,6 +14,11 @@ from schemas.records import CoinGeckoItem
 load_dotenv()
 
 # parameters and fields for the CoinGecko API request
+key = os.getenv("API_KEY")
+
+if not os.getenv("API_KEY"):
+    raise RuntimeError("API_KEY missing — PLEASE RUN API_KEY=<your_key> docker-compose up TO FIX")
+
 
 SOURCE_API_URL = os.getenv("SOURCE_API_URL", "https://api.coingecko.com/api/v3/coins/markets")
 VS_CURRENCY = os.getenv("VS_CURRENCY", "usd")
@@ -21,7 +26,8 @@ CATEGORY = os.getenv("CATEGORY", "layer-1")
 PRICE_CHANGE_PERCENTAGE = os.getenv("PRICE_CHANGE_PERCENTAGE", "1h")
 INCLUDE_TOKENS = os.getenv("INCLUDE_TOKENS", "top")
 SOURCE_NAME = os.getenv("SOURCE_NAME", "coingecko")
-headers = {"x-cg-demo-api-key": os.getenv("API_KEY")}
+headers = {"x-cg-demo-api-key": key}
+
 
 #for insertion of raw api data
 def insert_raw_api(conn, source_id, payload):
@@ -45,7 +51,6 @@ def fetch_api(conn):
             "price_change_percentage": PRICE_CHANGE_PERCENTAGE,
             "include_tokens": INCLUDE_TOKENS,
         }
-
         response = requests.get(SOURCE_API_URL, params=params, headers=headers, timeout=15) # 
         response.raise_for_status()
 
