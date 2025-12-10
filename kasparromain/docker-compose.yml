@@ -4,7 +4,7 @@ services:
   api:
     build: .
     environment:
-      - API_KEY="${API_KEY}"
+      - API_KEY=${API_KEY}
   postgres:
     image: postgres:15
     environment:
@@ -19,6 +19,8 @@ services:
 
   app:
     image: madhavprasad2003/kasparromain:latest
+    environment:
+      - API_KEY=${API_KEY}
     env_file:
       - .env
     depends_on:
@@ -32,6 +34,8 @@ services:
 
   worker:
     image: madhavprasad2003/kasparromain:latest
+    environment:
+      - API_KEY=${API_KEY}
     env_file:
       - .env
     depends_on:
