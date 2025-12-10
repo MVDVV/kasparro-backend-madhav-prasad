@@ -8,8 +8,8 @@ All components run via docker-compose works with the prebuilt image
 2)copy env
 --->  cp .env.example .env
 
-3)COMMAND TO START
-   to coinGecko ETLruns with paparika and csv do:
+3)COMMAND TO START {docker-compose up}
+   (to also start CoinGecko runs do):
    
 ---> API_KEY=your-api-key docker-compose up
 
