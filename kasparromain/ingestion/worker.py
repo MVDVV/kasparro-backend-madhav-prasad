@@ -4,7 +4,7 @@ import time
 import csv
 import json
 from datetime import datetime
-from core.db import get_db_conn, ensure_tables
+from core.db import get_db_conn, release_db_conn, ensure_tables
 from dotenv import load_dotenv
 from ingestion.api_source import fetch_api
 from ingestion.csv_source import process_csv
@@ -40,6 +40,9 @@ def main_loop():
         except Exception as e:
             print("Worker error:", e)
         time.sleep(POLL_SECONDS)
+    
+    release_db_conn(conn)
+
 
 if __name__ == "__main__":
     main_loop()
