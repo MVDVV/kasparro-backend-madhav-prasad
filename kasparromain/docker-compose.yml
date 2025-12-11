@@ -1,10 +1,7 @@
 version: "3.8"
 
 services:
-  api:
-    build: .
-    environment:
-      - API_KEY=${API_KEY}
+
   postgres:
     image: postgres:15
     environment:
@@ -18,7 +15,7 @@ services:
       - "5432:5432"
 
   app:
-    image: madhavprasad2003/kasparromain:latest
+    build: .
     environment:
       - API_KEY=${API_KEY}
     env_file:
@@ -33,7 +30,7 @@ services:
       - ./data:/app/data
 
   worker:
-    image: madhavprasad2003/kasparromain:latest
+    build: .
     environment:
       - API_KEY=${API_KEY}
     env_file:
