@@ -18,7 +18,6 @@ app = FastAPI(title= "Backend & ETL - Assignment, API")
 def startup():
     ensure_tables()
 
-
 @app.get("/health", response_model=HealthResponse)
 def health():
     db_ok = False
@@ -143,6 +142,15 @@ def stats():
       GROUP BY source;
     """)
     rows = cur.fetchall()
+
+    cur.execute("""
+      SELECT COUNT(id) as cnt
+      FROM raw_api;
+    """)
+    raw_api_rows = cur.fetchone()[0]
     cur.close()
     release_db_conn(conn) # release the connection back to the pool
-    return {"by_source": {r[0]: r[1] for r in rows}}
+
+    return {"unique_entries_by_source": {r[0]: r[1] for r in rows},
+            "raw_api_counts_by_source": raw_api_rows
+           }
