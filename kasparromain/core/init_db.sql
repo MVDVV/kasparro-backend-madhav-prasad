@@ -20,14 +20,13 @@ CREATE TABLE IF NOT EXISTS raw_csv (
 -- normalized unified table
 CREATE TABLE IF NOT EXISTS normalized (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  canonical_id TEXT,
+  canonical_id TEXT UNIQUE, /* new unique key defined as requested */
   name TEXT,
   value DOUBLE PRECISION,
   ts timestamptz,
   last_updated timestamptz,
   source TEXT,
-  raw_ref uuid,
-  UNIQUE (canonical_id, source)
+  raw_ref uuid
 );
 
 CREATE INDEX IF NOT EXISTS idx_normalized_ts ON normalized (ts);  /* for time-based queries */
