@@ -4,7 +4,7 @@ import time
 from fastapi import FastAPI, HTTPException, Query
 from typing import List, Optional
 from datetime import datetime
-from core.db import get_db_conn, ensure_tables
+from core.db import get_db_conn, release_db_conn, ensure_tables
 from schemas.api_responses import DataResponse, DataRow
 from schemas.api_responses import HealthResponse, ETLStatus
 
@@ -16,7 +16,7 @@ app = FastAPI(title= "Backend & ETL - Assignment, API")
 # ensure tables exist on startup
 @app.on_event("startup")
 def startup():
-    time.sleep(5)  # wait for the DB to be ready, else it api exit when rerun
+    time.sleep(5)  # wait for the DB to be ready
     ensure_tables()
 
 
@@ -56,7 +56,8 @@ def health():
 
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
-
+    
+    release_db_conn(conn) # release the connection back to the pool
     return HealthResponse(
         status="ok" if db_ok else "error",
         timestamp=datetime.utcnow(),
@@ -111,6 +112,7 @@ def get_data(
     cur.execute(q, tuple(params) + (page_size, offset))
     rows = cur.fetchall()
     cur.close()
+    release_db_conn(conn) # release the connection back to the pool
     end_time = time.perf_counter()
     latency_ms = (end_time - start_time) * 1000  
     return DataResponse(
@@ -145,4 +147,5 @@ def stats():
     """)
     rows = cur.fetchall()
     cur.close()
+    release_db_conn(conn) # release the connection back to the pool
     return {"by_source": {r[0]: r[1] for r in rows}}
