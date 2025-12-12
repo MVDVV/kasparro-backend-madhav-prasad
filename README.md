@@ -111,6 +111,11 @@ https://etl-api-617963497994.us-central1.run.app/stats
 
 --> exponential backoff function for api sources
 
+--> changed the connections to database to use a pooled connection for saftey
+--> changed the canonical_id to reflect only the latest information regarding the currencies in the normalized table
+--> new docker file for staged building
+--> replaced arbitrary wait for satisfying 'database_ready' condition with a health check
+
 ---
 
 ##  Contact Information
