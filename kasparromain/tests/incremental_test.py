@@ -1,12 +1,12 @@
-#testing incremental ingestions
 from ingestion.unify_schema import upsert_normalized
 from datetime import datetime
-import psycopg2
-DATABASE_URL = "postgresql://app:password@postgres:5432/appdb"
+from core.db import get_db_conn, release_db_conn
+import os
+DATABASE_URL = os.getenv
 def test_incremental_upsert():
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = get_db_conn()
 
-    canonical_id = "coingecko:eth:100"
+    canonical_id = "eth100"
     # Define a UUID constant for the test
 
     upsert_normalized(
@@ -20,5 +20,6 @@ def test_incremental_upsert():
     cur.execute("SELECT COUNT(*) FROM normalized WHERE canonical_id=%s", (canonical_id,))
     count = cur.fetchone()[0] #type: ignore
     cur.close()
+    release_db_conn(conn)
 
     assert count == 1, "Incremental ingestion should not create duplicates"
