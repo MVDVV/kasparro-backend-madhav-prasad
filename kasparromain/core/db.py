@@ -7,7 +7,7 @@ from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL") or os.getenv("DATABASE_URL_LOCAL") or "postgresql://app:password@postgres:5432/appdb"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 connection_pool =  psycopg2.pool.SimpleConnectionPool(minconn = 4 ,maxconn = 4, dsn = DATABASE_URL)
 
