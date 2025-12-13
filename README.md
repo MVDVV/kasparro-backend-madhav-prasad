@@ -108,10 +108,11 @@ Parameter details can be found in `api/main.py`.
 5. Cloud deployment is done on GCP. (the worker is stopped, but the api endpoint should be accessible)
 6. I have ignored some cases where the code in theory can try to access a None object, for simplicity; ideally these can be fixed with a small check before access for safety
 
-### Cloud API Endpoint
+### Cloud API Endpoints
 
 ```
 https://etl-api-617963497994.us-central1.run.app/stats
+https://etl-api-617963497994.us-central1.run.app/health
 ```
 
 ---
