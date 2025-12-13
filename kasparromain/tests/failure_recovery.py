@@ -1,8 +1,11 @@
 #to be updated
 import psycopg2
-DATABASE_URL = "postgresql://app:password@postgres:5432/appdb"
+import os
+from core.db import get_db_conn, release_db_conn
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def test_failure_recovery():
-    conn = psycopg2.connect(DATABASE_URL)
+    conn = get_db_conn()
+    release_db_conn(conn)
 
