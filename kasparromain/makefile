@@ -1,4 +1,4 @@
-.PHONY: up down logs test
+
 
 up:
 	docker-compose up --build
@@ -9,6 +9,8 @@ down:
 logs:
 	docker-compose logs -f
 
+
+.PHONY: test
+
 test:
-	# add pytest tests later
-	@echo "No tests configured yet"
+	docker-compose exec app python -m pytest -q ./tests
