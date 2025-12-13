@@ -24,7 +24,7 @@ class CoinGeckoItem(BaseModel):
 
         """coin id+ source as unique key. just in case paparika has different ids"""
 
-        return f"coingecko:{self.id}"
+        return self.id
 
     @property
     def normalized_value(self) -> float:
@@ -55,7 +55,7 @@ class PaprikaItem(BaseModel):
 
         """new Unique row key based on source + coin id"""
 
-        return f"paprika:{self.id}"
+        return self.id
 
     @property
     def normalized_value(self) -> float:
