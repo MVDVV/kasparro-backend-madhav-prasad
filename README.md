@@ -9,6 +9,15 @@ The way i have implemented this,  the application's major objective is to use th
 
 ---
 
+##  CHANGELOG 1.1 (13-12-2025)
+
+1) normalisation changed to reflect only coin_id as requested
+2) removed hard-coded database password (now should run :POSTGRES_PASSWORD=<password> docker compose up)
+3) "--reload" removed from .yml file
+4) updated outdated makefile
+
+---
+
 ##  1. Download this repository
 
 Clone or download the repository to your machine.
