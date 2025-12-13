@@ -41,7 +41,7 @@ def process_csv(conn):
             if idx <= last_line:
                 continue
             raw_id = insert_raw_csv(conn, idx, row)
-            canonical_id = f"csv:{idx}"
+            canonical_id = row["coin_id"]
             name = row.get("name") or row.get("title") or "csv-row"
             try:
                 value = float(row.get("value") or len(name))
