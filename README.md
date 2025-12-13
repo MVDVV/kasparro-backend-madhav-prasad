@@ -117,7 +117,7 @@ https://etl-api-617963497994.us-central1.run.app/health
 
 ---
 
-##  new changes made (after deadline)
+##  CHANGELOG 1.0 (after deadline)
 
 --> exponential backoff function for api sources
 
